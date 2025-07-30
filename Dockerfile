@@ -4,6 +4,9 @@ FROM python:3.11-slim
 # Устанавливаем системные зависимости
 RUN apt-get update && apt-get install -y \
     ffmpeg \
+    ca-certificates \
+    curl \
+    && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Создаем пользователя для запуска приложения
@@ -24,6 +27,9 @@ COPY . .
 # Создаем необходимые директории
 RUN mkdir -p logs data downloads temp \
     && chown -R app:app /app
+
+# Устанавливаем переменную окружения для pydub
+ENV PATH="/usr/bin:$PATH"
 
 # Переключаемся на пользователя app
 USER app

@@ -34,8 +34,8 @@ echo "🔧 Останавливаем существующий контейне�
 docker stop $CONTAINER_NAME 2>/dev/null || true
 docker rm $CONTAINER_NAME 2>/dev/null || true
 
-echo "🏗️  Собираем Docker образ..."
-docker build -t $IMAGE_NAME .
+echo "🏗️  Собираем Docker образ (с обновленными зависимостями)..."
+docker build --no-cache -t $IMAGE_NAME .
 
 echo "📦 Создаем volumes для данных..."
 docker volume create $DATA_VOLUME 2>/dev/null || true
