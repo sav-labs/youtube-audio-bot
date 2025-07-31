@@ -120,3 +120,6 @@ Desktop.ini
 
 # Docker
 .dockerignore
+
+# Тестовые файлы
+test_*.py

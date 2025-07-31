@@ -278,6 +278,12 @@ docker run --rm -v youtube-bot-data:/data -v $(pwd):/backup alpine \
 - Убедитесь, что FFmpeg установлен
 - Проверьте логи: `docker logs youtube-audio-bot`
 
+**Видео недоступно для скачивания:**
+- Видео может быть заблокировано в вашем регионе
+- Видео может иметь возрастные ограничения
+- Видео может быть приватным или удаленным
+- Попробуйте другое публичное видео
+
 **SSL/Certificate ошибки (решено):**
 - Используется pytubefix вместо yt-dlp - нет проблем с SSL
 - Нативная Python библиотека работает без внешних API
@@ -296,6 +302,9 @@ docker run --rm -v youtube-bot-data:/data -v $(pwd):/backup alpine \
 ```bash
 # Детальные логи
 LOG_LEVEL=DEBUG python main.py
+
+# Тестирование конкретного видео (только для разработки)
+python test_youtube.py "https://www.youtube.com/watch?v=VIDEO_ID"
 
 # Проверка зависимостей
 pip check
