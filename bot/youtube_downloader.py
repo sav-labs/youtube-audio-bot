@@ -71,9 +71,10 @@ class YouTubeDownloader:
             
             # Проверяем длительность видео
             duration = info.get('duration', 0)
-            if duration > 7200:  # 2 часа
-                self.logger.warning(f"Видео слишком длинное ({duration} сек): {url}")
-                return None
+            if duration > settings.MAX_DURATION:
+                hours = settings.MAX_DURATION // 3600
+                self.logger.warning(f"Видео слишком длинное ({duration} сек, лимит: {settings.MAX_DURATION} сек): {url}")
+                return "TOO_LONG"
             
             # Скачиваем аудио
             loop = asyncio.get_event_loop()

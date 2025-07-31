@@ -92,7 +92,7 @@ class YouTubeAudioBot:
             "⚠️ <b>Ограничения:</b>\n"
             f"• Максимальный размер файла: {settings.MAX_FILE_SIZE} МБ\n"
             "• Только публичные видео\n"
-            "• Длительность до 2 часов\n\n"
+            f"• Длительность до {settings.MAX_DURATION // 3600} час(ов)\n\n"
             "🤖 Команды:\n"
             "/start - Начать работу\n"
             "/help - Показать эту справку\n"
@@ -131,6 +131,15 @@ class YouTubeAudioBot:
         try:
             # Скачиваем аудио
             audio_file_path = await self.downloader.download_audio(url)
+            
+            if audio_file_path == "TOO_LONG":
+                max_hours = settings.MAX_DURATION // 3600
+                await processing_msg.edit_text(
+                    "❌ Видео слишком длинное!\n\n"
+                    f"⏱️ Максимальная длительность: {max_hours} час(а)\n"
+                    "🎵 Попробуйте более короткое видео."
+                )
+                return
             
             if not audio_file_path or not Path(audio_file_path).exists():
                 await processing_msg.edit_text(

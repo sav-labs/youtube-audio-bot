@@ -18,6 +18,7 @@ class Settings:
         # Настройки загрузки
         self.DOWNLOAD_DIR: Path = Path("downloads")
         self.MAX_FILE_SIZE: int = int(os.getenv("MAX_FILE_SIZE", "50"))  # MB
+        self.MAX_DURATION: int = int(os.getenv("MAX_DURATION", "14400"))  # секунды (4 часа)
         self.TEMP_DIR: Path = Path("temp")
         
         # Настройки базы данных
